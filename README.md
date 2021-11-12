@@ -1,1 +1,1 @@
-# python_autotests
+# Обучение автотестам на языке Python
