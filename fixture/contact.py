@@ -93,7 +93,7 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         # подтвердить удаление
         wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to_alert().accept()
+        wd.switch_to.alert.accept()
         wd.find_element_by_link_text("home").click()
 
     def modify(self, contact):
