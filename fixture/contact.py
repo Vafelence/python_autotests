@@ -13,14 +13,6 @@ class ContactHelper:
         wd = self.app.wd
         # создание нового контакта
         wd.find_element_by_link_text("add new").click()
-        self.fill_contact_form(contact)
-        # подтверждение создания нового контакта
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        self.return_to_contact_page(wd)
-
- #   def fill_contact_form(self, contact):
-        wd = self.app.wd
-        # заполнение формы информации о контакте
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -89,6 +81,9 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
+        # подтверждение создания нового контакта
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.return_to_contact_page(wd)
 
     def delete_first_contact(self):
         wd = self.app.wd
