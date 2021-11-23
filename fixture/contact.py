@@ -18,6 +18,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_contact_page(wd)
 
+
     def delete_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
