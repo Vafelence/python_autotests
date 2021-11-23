@@ -1,4 +1,4 @@
-import time
+
 
 class ContactHelper:
 
@@ -20,18 +20,23 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        self.open_contact_page()
         # выбрать первую группу
         wd.find_element_by_name("selected[]").click()
         # подтвердить удаление
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        wd.find_element_by_link_text("home").click()
+        self.open_contact_page()
+
+    def open_contact_page(self):
+        wd = self.app.wd
+        if not wd.find_element_by_xpath("input[@value='Send e-Mail']"):
+            wd.find_element_by_link_text("home").click()
 
     def modify_first_contact(self, new_group_data):
         wd = self.app.wd
         # открытие страницы с контактами
-        wd.find_element_by_link_text("home").click()
+        self.open_contact_page()
         # открытие существующего контакта
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # редактирование информации о контакте
@@ -82,7 +87,7 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        self.open_contact_page()
         return len(wd.find_elements_by_name("selected[]"))
 
 
