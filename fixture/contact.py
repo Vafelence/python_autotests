@@ -18,7 +18,6 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_contact_page(wd)
 
-
     def delete_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
@@ -58,11 +57,11 @@ class ContactHelper:
         self.change_field_value("email2", contact.email2)
         self.change_field_value("email3", contact.email3)
         self.change_field_value("homepage", contact.homepage)
-        self.change_field_value("bday", contact.bday)
-        self.change_field_value("bmonth", contact.bmonth)
+        self.change_list_value("bday", contact.bday)
+        self.change_list_value("bmonth", contact.bmonth)
         self.change_field_value("byear", contact.byear)
-        self.change_field_value("aday", contact.aday)
-        self.change_field_value("amonth", contact.amonth)
+        self.change_list_value("aday", contact.aday)
+        self.change_list_value("amonth", contact.amonth)
         self.change_field_value("ayear", contact.ayear)
         self.change_field_value("address2", contact.address2)
         self.change_field_value("phone2", contact.phone2)
@@ -73,6 +72,12 @@ class ContactHelper:
         if text is not None:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
+
+    def change_list_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).send_keys(text)
 
     def count(self):
