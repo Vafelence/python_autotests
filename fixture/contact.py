@@ -1,5 +1,4 @@
 
-
 class ContactHelper:
 
     def __init__(self, app):
@@ -11,6 +10,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
+        self.open_contact_page()
         # создание нового контакта
         wd.find_element_by_link_text("add new").click()
         self.fill_contact_form(contact)
@@ -30,7 +30,7 @@ class ContactHelper:
 
     def open_contact_page(self):
         wd = self.app.wd
-        if not wd.find_element_by_xpath("input[@value='Send e-Mail']"):
+        if not len(wd.find_elements_by_link_text("All e-mail")) > 0:
             wd.find_element_by_link_text("home").click()
 
     def modify_first_contact(self, new_group_data):
