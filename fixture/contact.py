@@ -95,6 +95,13 @@ class ContactHelper:
     def get_contact_list(self):
         wd = self.app.wd
         self.open_contact_page()
-        contacts = wd.find_elements_by_xpath('//table//input[@type="checkbox"]')
+        contacts = []
+        for contact in wd.find_elements_by_name("entry"):
+            cells = contact.find_elements_by_tag_name("td")
+            lastname = cells[1].text
+            firstname = cells[2].text
+            id = contact.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(firstname=firstname, lastname=lastname, id=id))
         return contacts
+
 
