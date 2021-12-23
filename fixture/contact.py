@@ -1,3 +1,5 @@
+import time
+
 from model.contact import Contact
 
 
@@ -22,10 +24,13 @@ class ContactHelper:
         self.contact_cache = None
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_contact_page()
         # выбрать первую группу
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         # подтвердить удаление
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
@@ -37,14 +42,22 @@ class ContactHelper:
         if not len(wd.find_elements_by_link_text("All e-mail")) > 0:
             wd.find_element_by_link_text("home").click()
 
-    def modify_first_contact(self, new_group_data):
+    def modify_first_contact(self, new_contact_data):
+        self.modify_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         # открытие страницы с контактами
         self.open_contact_page()
+        self.select_contact_by_index(index)
         # открытие существующего контакта
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # редактирование информации о контакте
-        self.fill_contact_form(new_group_data)
+        self.fill_contact_form(new_contact_data)
         # подтверждение модификации контакта
         wd.find_element_by_name("update").click()
         self.return_to_contact_page(wd)

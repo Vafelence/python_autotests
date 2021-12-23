@@ -26,15 +26,22 @@ class GroupHelper:
         if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
             wd.find_element_by_link_text("groups").click()
 
-    def delete_first_group (self):
+    def delete_group_by_index (self, index):
         wd = self.app.wd
         self.open_groups_page()
         # выбрать первую группу
-        self.select_first_group()
+        self.select_group_by_index(index)
         # подтвердить удаление
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
         self.group_cache = None
+
+    def delete_first_group(self):
+        self.delete_group_by_index(0)
+
+    def select_group_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def select_first_group(self):
         wd = self.app.wd
@@ -54,9 +61,12 @@ class GroupHelper:
             wd.find_element_by_name(field_name).send_keys(text)
 
     def modify_first_group(self, new_group_data):
+        self.modify_group_by_index(0)
+
+    def modify_group_by_index(self, index, new_group_data):
         wd = self.app.wd
         self.open_groups_page()
-        self.select_first_group()
+        self.select_group_by_index(index)
         # Открытие страницы для редактирования группы
         wd.find_element_by_name("edit").click()
         # заполнение формы создания группы
