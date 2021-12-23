@@ -1,4 +1,5 @@
 import re
+from model.contact import Contact
 
 
 def test_phones_on_home_page(app):
