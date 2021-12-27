@@ -49,13 +49,16 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+    def open_random_edit_page_contact(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         # открытие страницы с контактами
         self.open_contact_page()
-        self.select_contact_by_index(index)
         # открытие существующего контакта
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.open_random_edit_page_contact(index)
         # редактирование информации о контакте
         self.fill_contact_form(new_contact_data)
         # подтверждение модификации контакта
