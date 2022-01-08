@@ -37,3 +37,4 @@ group_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 with open(group_file, "w") as f:
     jsonpickle.set_encoder_options("json", indent=2)
     f.write(jsonpickle.encode(testdata))
+
