@@ -43,7 +43,9 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select group_id, group_name from group_list where group_id not in (select group_id from address_in_groups)")
+            cursor.execute("select group_id, group_name "
+                           "from group_list "
+                           "where group_id not in (select group_id from address_in_groups)")
             for row in cursor:
                 (id, name) = row
                 list.append(Group(id=str(id), name=name))
@@ -79,25 +81,3 @@ class DbFixture:
             cursor.close()
         return list
 
-    def convert_groups_to_model(self, groups):
-        def convert(group):
-            return Group(id=str(group.id), name=group.name, header=group.header, footer=group.footer)
-        return list(map(convert, groups))
-
-    def convert_contacts_to_model(self, contacts):
-        def convert(contact):
-            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname)
-        return list(map(convert, contacts))
-
-    # def get_contacts_not_in_group(self, group):
-    #     orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
-    #     return self.convert_contacts_to_model(
-    #         select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
-    #
-    # def get_groups_with_contact(self, contact):
-    #     orm_contact = list(select(c for c in ORMFixture.ORMContact if c.id == contact.id))[0]
-    #     return self.convert_groups_to_model(orm_contact.groups)
-    #
-    # def get_groups_without_contact(self, contact):
-    #     orm_contact = list(select(c for c in ORMFixture.ORMContact if c.id == contact.id))[0]
-    #     return self.convert_groups_to_model(select(c for c in ORMFixture.ORMGroup if orm_contact not in c.contacts))

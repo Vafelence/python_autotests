@@ -4,7 +4,7 @@ import random
 
 def test_modify_contact(app, db, json_contact, check_ui):
     if len(db.get_contact_list()) == 0:
-        app.entry.create(Contact(firstname="test"))
+        app.contact.create(Contact(firstname="test"))
     old_contacts = db.get_contact_list()
     contact = json_contact
     select_contact = random.choice(old_contacts)

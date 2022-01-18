@@ -175,12 +175,9 @@ class ContactHelper:
     def delete_contact_by_id(self, id):
         wd = self.app.wd
         self.open_contact_page()
-        # select first contact
         self.select_contact_by_id(id)
-        # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
-        wd.find_element_by_css_selector("div.msgbox")
         self.contact_cache = None
 
     def select_contact_by_id(self, id):
@@ -207,7 +204,7 @@ class ContactHelper:
         Select(wd.find_element_by_name("to_group")).select_by_value(str(group))
         wd.find_element_by_name("add").click()
 
-    def delete_entry_from_group(self, contact, group):
+    def delete_contact_from_group(self, contact, group):
         wd = self.app.wd
         self.open_contact_page()
         Select(wd.find_element_by_name("group")).select_by_value(str(group))

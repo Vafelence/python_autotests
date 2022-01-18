@@ -27,3 +27,42 @@ class ORMFixture:
         self.db.bind('mysql', host=host, database=name, user=user, password=password)
         self.db.generate_mapping()
         sql_debug(True)
+
+    def convert_groups_to_model(self, groups):
+        def convert(group):
+            return Group(id=str(group.id), name=group.name, header=group.header, footer=group.footer)
+        return list(map(convert, groups))
+
+    def convert_contacts_to_model(self, contacts):
+        def convert(contact):
+            return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname)
+        return list(map(convert, contacts))
+
+    @db_session
+    def get_groups_list(self):
+        return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
+
+    @db_session
+    def get_contacts_list(self):
+        return self.convert_contacts_to_model(select(e for e in ORMFixture.ORMContact if e.deprecated is None))
+
+    @db_session
+    def get_contacts_in_group(self, group):
+        orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
+        return self.convert_contacts_to_model(orm_group.entries)
+
+    @db_session
+    def get_entries_not_in_group(self, group):
+        orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
+        return self.convert_contacts_to_model(
+            select(e for e in ORMFixture.ORMContact if e.deprecated is None and orm_group not in e.groups))
+
+    @db_session
+    def get_groups_with_entry(self, contact):
+        orm_contact = list(select(e for e in ORMFixture.ORMContact if e.id == contact.id))[0]
+        return self.convert_groups_to_model(orm_contact.groups)
+
+    @db_session
+    def get_groups_without_contact(self, contact):
+        orm_contact = list(select(e for e in ORMFixture.ORMContact if e.id == contact.id))[0]
+        return self.convert_groups_to_model(select(e for e in ORMFixture.ORMGroup if orm_contact not in e.contacts))
