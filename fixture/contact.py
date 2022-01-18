@@ -206,7 +206,6 @@ class ContactHelper:
         self.select_contact_by_id(contact)
         Select(wd.find_element_by_name("to_group")).select_by_value(str(group))
         wd.find_element_by_name("add").click()
-        #wd.find_element_by_css_selector("div.msgbox")  # wait the message about deletion
 
     def delete_entry_from_group(self, contact, group):
         wd = self.app.wd
@@ -215,4 +214,28 @@ class ContactHelper:
         wd.find_element_by_css_selector("input[value='%s']" % contact).click()
         wd.implicitly_wait(5)
         wd.find_element_by_css_selector("input[type='submit']").click()
-        #wd.find_element_by_css_selector("div.msgbox")  # wait the message about deletion
+
+    def add_contact_to_group(self, id, group_name):
+        wd = self.app.wd
+        self.open_contact_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text(group_name)
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_xpath("//div[@id='content']/div/i/a").click()
+
+    def check_all_contacts_in_group(self, contacts, contacts_in_group):
+        list = []
+        contacts_in_group_list = []
+        for i in range(len(contacts_in_group)):
+            contacts_in_group_list.append(clear(contacts_in_group[i].id))
+        for i in range(len(contacts)):
+            if contacts[i].id not in contacts_in_group_list:
+                list.append(contacts[i].id)
+            else:
+                pass
+        return list
+
+
+def clear(s):
+    return re.sub("[() ,]", "", s)

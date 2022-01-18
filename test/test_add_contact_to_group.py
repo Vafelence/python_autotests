@@ -1,52 +1,32 @@
 from model.contact import Contact
 from model.group import Group
 import random
+import re
 
 
-def test_add_contact_in_group(app, orm, db):
-    if len(db.get_groups_without_contacts()) == 0:
-        app.group.create(Group(name="test_group"))
-
-    if len(db.get_contacts_not_in_any_group()) == 0:
+def test_add_some_contact_to_group(app, db):
+    old_groups = db.get_group_list()
+    if len(old_groups) == 0:
+        app.group.create(Group(name='test'))
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test"))
+    new_groups = db.get_group_list()
+    group = random.choice(new_groups)
+    num = group.id
+    old_contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    contacts_in_group = db.get_contacts_in_group(num)
+    list = app.contact.check_all_contacts_in_group(old_contacts, contacts_in_group)
+    if not list:
+        app.contact.create(Contact(firstname="test"))
+        new_contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
+        list.append(new_contacts[-1].id)
+    id = random.choice(list)
+    app.contact.add_contact_to_group(id, group.name)
+    contact_from_ui = sorted(app.contact.get_contacts_in_group(group_name=group.name), key=Contact.id_or_max)
+    contact_from_db = db.get_contacts_in_group(num)
+    for i in range(len(contact_from_ui)):
+        assert contact_from_ui[i].id == clear(contact_from_db[i].id)
 
-    groups = db.get_groups_without_entries()
-    selected_group = random.choice(groups)
 
-    contacts = db.get_contact_not_in_any_group()
-    selected_contact = random.choice(contacts)
-
-    app.contact.add_contact_in_group(selected_contact.id, selected_group.id)
-
-    contacts_in_group = orm.get_contacts_in_group(selected_group)
-
-    assert selected_contact in contacts_in_group
-
-
-def test_delete_entry_from_group(app, orm, db, check_ui):
-    if len(orm.get_group_list()) == 0:
-        initial_group = Group(name="test_group")
-        app.group.create(initial_group)
-
-    if len(orm.get_contact_list()) == 0:
-        initial_contact = Contact(firstname="test")
-        app.contact.create(initial_contact)
-        app.contact.add_contact_in_group(initial_contact.id, initial_group.id)
-
-    groups = orm.get_group_list()
-    selected_group = random.choice(groups)
-
-    contacts_in_selected_group = orm.get_contacts_in_group(selected_group)
-
-    if len(contacts_in_selected_group) == 0:
-        selected_contact = random.choice(orm.get_contact_list())
-        app.contact.add_contact_in_group(selected_contact.id, selected_group.id)
-        contacts_in_selected_group = orm.get_contacts_in_group(selected_group)
-
-    selected_contact = random.choice(contacts_in_selected_group)
-
-    app.contact.delete_contact_from_group(selected_contact.id, selected_group.id)
-
-    contacts_in_group = orm.get_contacts_in_group(selected_group)
-
-    assert selected_contact not in contacts_in_group
+def clear(s):
+    return re.sub("[() ,]", "", s)
