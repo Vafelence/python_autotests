@@ -1,4 +1,6 @@
 import re
+import time
+from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 
 
@@ -116,15 +118,16 @@ class ContactHelper:
             self.contact_cache = []
             for contact in wd.find_elements_by_name("entry"):
                 cells = contact.find_elements_by_tag_name("td")
+                contact_id = cells[0].find_element_by_name("selected[]").get_attribute("value")
                 lastname = cells[1].text
                 firstname = cells[2].text
                 address = cells[3].text
                 all_emails = cells[4].text
                 all_phones = cells[5].text
-                id = contact.find_element_by_name("selected[]").get_attribute("value")
+
                 self.contact_cache.append(Contact(all_phones_from_home_page=all_phones,
                                                   all_emails_from_home_page=all_emails, firstname=firstname,
-                                                  lastname=lastname, id=id, address=address))
+                                                  lastname=lastname, id=contact_id, address=address))
         return list(self.contact_cache)
 
     def open_contact_view_by_index(self, index):
@@ -168,3 +171,46 @@ class ContactHelper:
         phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, address=address, email=email1, email2=email2,
                        email3=email3, home_phone=home, mobile_phone=mobile, work_phone=work, phone2=phone2)
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_contact_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.open_contact_page()
+        self.contact_cache = None
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
+    def modify_contact_by_id(self, id, new_contact_data):
+        wd = self.app.wd
+        self.open_contact_page()
+        self.select_contact_by_id_for_edit(id)
+        self.fill_contact_form(new_contact_data)
+        wd.find_element_by_name("update").click()
+        self.return_to_contact_page(wd)
+        self.contact_cache = None
+
+    def select_contact_by_id_for_edit(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % id).click()
+
+    def add_contact_in_group(self, contact, group):
+        wd = self.app.wd
+        self.open_contact_page()
+        self.select_contact_by_id(contact)
+        Select(wd.find_element_by_name("to_group")).select_by_value(str(group))
+        wd.find_element_by_name("add").click()
+        #wd.find_element_by_css_selector("div.msgbox")  # wait the message about deletion
+
+    def delete_entry_from_group(self, contact, group):
+        wd = self.app.wd
+        self.open_contact_page()
+        Select(wd.find_element_by_name("group")).select_by_value(str(group))
+        wd.find_element_by_css_selector("input[value='%s']" % contact).click()
+        wd.implicitly_wait(5)
+        wd.find_element_by_css_selector("input[type='submit']").click()
+        #wd.find_element_by_css_selector("div.msgbox")  # wait the message about deletion
