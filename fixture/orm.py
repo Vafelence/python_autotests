@@ -53,13 +53,13 @@ class ORMFixture:
         return self.convert_contacts_to_model(orm_group.contacts)
 
     @db_session
-    def get_entries_not_in_group(self, group):
+    def get_contacts_not_in_group(self, group):
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
         return self.convert_contacts_to_model(
             select(e for e in ORMFixture.ORMContact if e.deprecated is None and orm_group not in e.groups))
 
     @db_session
-    def get_groups_with_entry(self, contact):
+    def get_groups_with_contact(self, contact):
         orm_contact = list(select(e for e in ORMFixture.ORMContact if e.id == contact.id))[0]
         return self.convert_groups_to_model(orm_contact.groups)
 
