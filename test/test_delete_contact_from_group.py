@@ -22,3 +22,4 @@ def test_delete_contact_from_group(app, orm, db, check_ui):
     app.contact.delete_contact_from_group(selected_contact.id, selected_group.id)
     contacts_in_group = orm.get_contacts_in_group(selected_group)
     assert selected_contact not in contacts_in_group
+
