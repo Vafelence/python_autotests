@@ -207,8 +207,9 @@ class ContactHelper:
     def delete_contact_from_group(self, contact, group):
         wd = self.app.wd
         self.open_contact_page()
-        Select(wd.find_element_by_name("group")).select_by_value(str(group))
-        wd.find_element_by_css_selector("input[value='%s']" % contact).click()
+        wd.find_element_by_xpath("//select[@name='group']").click()
+        Select(wd.find_element_by_xpath("//select[@name='group']")).select_by_value(str(group.id))
+        wd.find_element_by_css_selector("input[value='%s']" % contact.id).click()
         wd.implicitly_wait(5)
         wd.find_element_by_css_selector("input[type='submit']").click()
 
