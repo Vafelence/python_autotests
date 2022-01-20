@@ -1,0 +1,227 @@
+{
+  "uid" : "efadceba655ac10c",
+  "name" : "test_delete_some_contact",
+  "fullName" : "tests_for_allure.test_delete_contact#test_delete_some_contact",
+  "historyId" : "c5fc2405f7060ce5f18de099bd5b5ed7",
+  "time" : {
+    "start" : 1642637128397,
+    "stop" : 1642637129615,
+    "duration" : 1218
+  },
+  "status" : "failed",
+  "statusMessage" : "AssertionError: assert (54 - 1) == 54\n +  where 54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n +  and   54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])",
+  "statusTrace" : "app = <fixture.application.Application object at 0x0000026AE1171580>, db = <fixture.db.DbFixture object at 0x0000026AE11715E0>, check_ui = False\n\n    def test_delete_some_contact(app, db, check_ui):\n        if len(db.get_contact_list()) == 0:\n            app.contact.create(Contact(firstname=\"test\"))\n        with allure.step(\"Given an contact list\"):\n            old_contacts = db.get_contact_list()\n        with allure.step(\"Given a selected contact\"):\n            contact = random.choice(old_contacts)\n        with allure.step(\"When I delete the contact\"):\n            app.contact.delete_contact_by_id(contact.id)\n        with allure.step(\"Then the new contact list is equal to the old list with the deleted contact\"):\n            new_contacts = db.get_contact_list()\n>           assert len(old_contacts) - 1 == len(new_contacts)\nE           assert (54 - 1) == 54\nE            +  where 54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\nE            +  and   54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n\ntests_for_allure\\test_delete_contact.py:17: AssertionError",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ {
+    "name" : "stop",
+    "time" : {
+      "start" : 1642637062592,
+      "stop" : 1642637062606,
+      "duration" : 14
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "db",
+    "time" : {
+      "start" : 1642637062606,
+      "stop" : 1642637062613,
+      "duration" : 7
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "app",
+    "time" : {
+      "start" : 1642637128363,
+      "stop" : 1642637128396,
+      "duration" : 33
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "check_ui",
+    "time" : {
+      "start" : 1642637128397,
+      "stop" : 1642637128397,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "status" : "failed",
+    "statusMessage" : "AssertionError: assert (54 - 1) == 54\n +  where 54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n +  and   54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])",
+    "statusTrace" : "app = <fixture.application.Application object at 0x0000026AE1171580>, db = <fixture.db.DbFixture object at 0x0000026AE11715E0>, check_ui = False\n\n    def test_delete_some_contact(app, db, check_ui):\n        if len(db.get_contact_list()) == 0:\n            app.contact.create(Contact(firstname=\"test\"))\n        with allure.step(\"Given an contact list\"):\n            old_contacts = db.get_contact_list()\n        with allure.step(\"Given a selected contact\"):\n            contact = random.choice(old_contacts)\n        with allure.step(\"When I delete the contact\"):\n            app.contact.delete_contact_by_id(contact.id)\n        with allure.step(\"Then the new contact list is equal to the old list with the deleted contact\"):\n            new_contacts = db.get_contact_list()\n>           assert len(old_contacts) - 1 == len(new_contacts)\nE           assert (54 - 1) == 54\nE            +  where 54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\nE            +  and   54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n\ntests_for_allure\\test_delete_contact.py:17: AssertionError",
+    "steps" : [ {
+      "name" : "Given an contact list",
+      "time" : {
+        "start" : 1642637128400,
+        "stop" : 1642637128402,
+        "duration" : 2
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "Given a selected contact",
+      "time" : {
+        "start" : 1642637128402,
+        "stop" : 1642637128402,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "When I delete the contact",
+      "time" : {
+        "start" : 1642637128402,
+        "stop" : 1642637129612,
+        "duration" : 1210
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "Then the new contact list is equal to the old list with the deleted contact",
+      "time" : {
+        "start" : 1642637129612,
+        "stop" : 1642637129615,
+        "duration" : 3
+      },
+      "status" : "failed",
+      "statusMessage" : "AssertionError: assert (54 - 1) == 54\n +  where 54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n +  and   54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n",
+      "statusTrace" : "  File \"C:\\Users\\Vafelence\\PycharmProjects\\python_autotests\\tests_for_allure\\test_delete_contact.py\", line 17, in test_delete_some_contact\n    assert len(old_contacts) - 1 == len(new_contacts)\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "stepsCount" : 0,
+      "hasContent" : true
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "stepsCount" : 4,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "db::fin",
+    "time" : {
+      "start" : 1642637192439,
+      "stop" : 1642637192439,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "stop::fin",
+    "time" : {
+      "start" : 1642637192441,
+      "stop" : 1642637193331,
+      "duration" : 890
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "tests_for_allure"
+  }, {
+    "name" : "suite",
+    "value" : "test_delete_contact"
+  }, {
+    "name" : "host",
+    "value" : "VafelencePC"
+  }, {
+    "name" : "thread",
+    "value" : "11448-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "tests_for_allure.test_delete_contact"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Product defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "efadceba655ac10c.json",
+  "parameterValues" : [ ]
+}

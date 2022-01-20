@@ -1,0 +1,30 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "AssertionError: assert (54 - 1) == 54\n +  where 54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])\n +  and   54 = len([108:lastnamebcMpfFY5X:firstnameA1t, 109:lastnameF7:firstname, 116:lastnametuQXwFRKTMp0x:firstnamejQ2a56, 118:lastnamebcMpfFY5X:firstnameA1t, 131:lastnamenatEAxcif:firstnamewAMcl, 132:lastnamebcMpfFY5X:firstnameA1t, ...])",
+      "children" : [ {
+        "name" : "test_delete_some_contact",
+        "uid" : "efadceba655ac10c",
+        "parentUid" : "c8902c4ed8f2fa0435ab1f3d847dc4ae",
+        "status" : "failed",
+        "time" : {
+          "start" : 1642637128397,
+          "stop" : 1642637129615,
+          "duration" : 1218
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "newPassed" : false,
+        "newBroken" : false,
+        "retriesCount" : 0,
+        "retriesStatusChange" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "c8902c4ed8f2fa0435ab1f3d847dc4ae"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  } ]
+}
